@@ -1,3 +1,5 @@
+const { MOVE_UP, MOVE_LEFT, MOVE_DOWN, MOVE_RIGHT, MESSAGES } = require('./constants');
+
 let conn;
 
 const setupInput = function(connection) {
@@ -15,23 +17,20 @@ const handleUserInput = function(key) {
     process.exit();
   }
 
-  if (key === 'W' || key == 'w') {
+  if (key.toUpperCase() === MOVE_UP) {
     conn.write('Move: up');
   }
-  if (key === 'A' || key === 'a') {
+  if (key.toUpperCase() === MOVE_LEFT) {
     conn.write('Move: left');
   }
-  if (key === 'S' || key === 's') {
+  if (key.toUpperCase() === MOVE_DOWN) {
     conn.write('Move: down');
   }
-  if (key === 'D' || key === 'd') {
+  if (key.toUpperCase() === MOVE_RIGHT) {
     conn.write('Move: right');
   }
-  if (key === 'P') {
-    conn.write('Say: get wrekt!');
-  }
-  if (key === 'O') {
-    conn.write('Say: okay fair game');
+  if (MESSAGES[key]) {
+    conn.write(MESSAGES[key]);
   }
 };
 
