@@ -1,7 +1,8 @@
-const { MOVE_UP, MOVE_LEFT, MOVE_DOWN, MOVE_RIGHT, MESSAGES } = require('./constants');
+const { MESSAGES, MOVE_KEYS } = require('./constants');
 
 let conn;
 
+// Setup for handling input and sending to server
 const setupInput = function(connection) {
   conn = connection;
   const stdin = process.stdin;
@@ -17,20 +18,15 @@ const handleUserInput = function(key) {
     process.exit();
   }
 
-  if (key.toUpperCase() === MOVE_UP) {
-    conn.write('Move: up');
+  let uppercase = key.toUpperCase();
+  // toUpperCase so that we can play the game without needing caps lock on
+
+  // Uses object with each movement key to move instead of writing individual if statements for each key
+  if (uppercase in MOVE_KEYS) {
+    conn.write(MOVE_KEYS[uppercase]);
   }
-  if (key.toUpperCase() === MOVE_LEFT) {
-    conn.write('Move: left');
-  }
-  if (key.toUpperCase() === MOVE_DOWN) {
-    conn.write('Move: down');
-  }
-  if (key.toUpperCase() === MOVE_RIGHT) {
-    conn.write('Move: right');
-  }
-  if (MESSAGES[key]) {
-    conn.write(MESSAGES[key]);
+  if (MESSAGES[uppercase]) {
+    conn.write(MESSAGES[uppercase]);
   }
 };
 
