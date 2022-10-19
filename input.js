@@ -27,6 +27,12 @@ const handleUserInput = function(key) {
   if (key === 'D' || key === 'd') {
     conn.write('Move: right');
   }
+  if (key === 'P') {
+    conn.write('Say: get wrekt!');
+  }
+  if (key === 'O') {
+    conn.write('Say: okay fair game');
+  }
 };
 
 module.exports = setupInput;
